@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <script type="text/javascript" src="C:\Users\jzimmerman1\Desktop\APCSP\pocket-calculator\pocket-calc.js"></script>
+    <link rel="stylesheet" type="text/css" href="C:\Users\jzimmerman1\Desktop\APCSP\pocket-calculator\pocket-calc.css"/>
+    <title>Pocket Calculator</title>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr>
+        <td id="output-bar" colspan="4"></td>
+      </tr>
+
+      <tr>
+        <td><button onclick="euler();" class="navy">e</button></td>
+        <td><button onclick="pi();" class="navy">pi</button></td>
+        <td><button onclick="xSquared();" class="navy">x^2</button></td>
+        <td><button onclick="xToTheY();" class="navy">x^y</button></td>
+      </tr>
+
+      <tr>
+        <td><button onclick="allClear();" class="navy">AC</button></td>
+        <td><button onclick="negate();" class="navy">+/-</button></td>
+        <td><button onclick="percent();" class="navy">%</button></td>
+        <td><button onclick="divide();" class="navy">÷</button></td>
+      </tr>
+
+      <tr>
+          <td><button onclick="number(7);">7</button></td>
+          <td><button onclick="number(8);">8</button></td>
+          <td><button onclick="number(9);">9</button></td>
+          <td><button onclick="multiply();" class="navy">X</button></td>
+      </tr>
+
+      <tr>
+          <td><button onclick="number(4);">4</button></td>
+          <td><button onclick="number(5);">5</button></td>
+          <td><button onclick="number(6);">6</button></td>
+          <td><button onclick="subtract();" class="navy">-</button></td>
+      </tr>
+
+      <tr>
+          <td><button onclick="number(1);">1</button></td>
+          <td><button onclick="number(2);">2</button></td>
+          <td><button onclick="number(3);">3</button></td>
+          <td><button onclick="add();" class="navy">+</button></td>
+      </tr>
+
+      <tr>
+        <td colspan="2"><button onclick="number(0);">0</button></td>
+        <td><button onclick="decimal();">(.)</td>
+        <td><button onclick="equals();" class="navy">=</td>
+      </tr>
+    </table>
+  </body>
+</html>
