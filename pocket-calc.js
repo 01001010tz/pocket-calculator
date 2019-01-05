@@ -2,7 +2,6 @@ var bar;
 /*bar = document.getElementById("output-bar").innerHTML=0;
 Requirements say default value needs to be zero. Find a way to do that.*/
 function number(number) {
-<<<<<<< HEAD
   bar = document.getElementById("output-bar").innerHTML += number;
   /*if (bar.length > 3) {
   bar.toLocaleString('en');
@@ -16,21 +15,9 @@ function euler() {
 
 function pi() {
   bar = document.getElementById("output-bar").innerHTML += Math.PI.toFixed(9);
-=======
   let bar = document.getElementById("output-bar");
   bar.innerHTML += number;
 
-}
-
-function euler() {
-  let bar = document.getElementById("output-bar");
-  bar.innerHTML += "2.71828183";
-}
-
-function pi() {
-  let bar = document.getElementById("output-bar");
-  bar.innerHTML += "3.14159265";
->>>>>>> d54f1c27871784dd4062a128a56e9d6143f71c90
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -80,22 +67,12 @@ function decimal() {
   console.log(i);
 
   if(i == 1) {
-<<<<<<< HEAD
   let bar = document.getElementById("output-bar").innerHTML += ".";
 } /*else {
   let bar = document.getElementById("output-bar");
   bar.innerHTML = "SYNTAX ERROR";
 }*/
 //Problem: Can repeat over and over again without error. Fix that.
-=======
-  let bar = document.getElementById("output-bar");
-  bar.innerHTML += ".";
-} /* else {
-  let bar = document.getElementById("output-bar");
-  bar.innerHTML = "SYNTAX ERROR";
-}
-*/
->>>>>>> d54f1c27871784dd4062a128a56e9d6143f71c90
 }
 
 function equals() {
