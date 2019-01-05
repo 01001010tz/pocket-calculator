@@ -1,4 +1,12 @@
 var bar;
+/*Need to add to calculator:
+Scientific notation and commas for numbers that are too large
+Constants that work (problems loading pi and e)
+Remove zero from first number after AC
+Consider adding parentheses
+Consider adding default x cubed option
+Consider adding x factorial using 'for' loop*/
+
 /*bar = document.getElementById("output-bar").innerHTML=0;
 Requirements say default value needs to be zero. Find a way to do that.*/
 function number(number) {
