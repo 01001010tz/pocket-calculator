@@ -1,14 +1,14 @@
 var bar;
+var history;
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
+Multiple operators can be directly added where they shouldn't be able to
 Remove zero from first number after AC
 Consider adding parentheses
 Consider adding default x cubed option
-Consider adding x factorial using 'for' loop*/
+Consider adding x! using 'for' loop*/
 
-/*bar = document.getElementById("output-bar").innerHTML=0;
-Requirements say default value needs to be zero. Find a way to do that.*/
 function number(number) {
   bar = document.getElementById("output-bar").innerHTML += number;
   /*if (bar.length > 3) {
@@ -23,9 +23,6 @@ function euler() {
 
 function pi() {
   bar = document.getElementById("output-bar").innerHTML += Math.PI.toFixed(9);
-  let bar = document.getElementById("output-bar");
-  bar.innerHTML += number;
-
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -42,12 +39,13 @@ function xToTheY() {
 //There's probably a way to consolidate these two functions, if it's easier/more efficient to do that
 
 function operator(operation) {
-  bar = document.getElementById("output-bar").innerHTML += operation;
+  history = document.getElementById("history").innerHTML += bar + operation;
+  bar = document.getElementById("output-bar").innerHTML = "";
   //PROBLEM: Operators can be used twice in a row. Find a way to render a syntax error
 }
 
 function allClear() {
-  bar = document.getElementById("output-bar").innerHTML = 0;
+  bar = document.getElementById("output-bar").innerHTML = "";
 }
 /*PROBLEM: After clearing the 0 doesn't go away. This will become a problem when 0 is made default later. Find a way
  to get rid of the zero when other numbers are put in */
@@ -61,7 +59,8 @@ if (equals > 0) {
   equals += 2*Math.abs(equals)
   bar = document.getElementById("output-bar").innerHTML = equals;
   }
-  //May need to sort out some problems here with making numbers negate before totalling
+
+  //May need to sort out some problems here with making numbers negate before totalling. Need to be able to string...
 }
 
 function percent() {
@@ -84,8 +83,11 @@ function decimal() {
 }
 
 function equals() {
-let equals = eval(bar);
-bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString('en');
+
+history = document.getElementById("history").innerHTML += bar;
+let equals = eval(history);
+bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+history = document.getElementById("history").innerHTML += "=" + equals;
 //Need to add scientific notation for lengths greater than 9 and commas for non-equals lengths greater than 3
 //Need to add syntax errors in general to make sure this runs right
 }
