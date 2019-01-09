@@ -1,5 +1,5 @@
 var bar;
-var history;
+var mymyHistory = "";
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
@@ -39,13 +39,25 @@ function xToTheY() {
 //There's probably a way to consolidate these two functions, if it's easier/more efficient to do that
 
 function operator(operation) {
-  history = document.getElementById("history").innerHTML += bar + operation;
+
+  let equalsCheck = myHistory.includes("=");
+if (!equalsCheck) {
+  myHistory = document.getElementById("myHistory").innerHTML += (bar + operation);
   bar = document.getElementById("output-bar").innerHTML = "";
+}
+  else if (equalsCheck) {
+    myHistory = document.getElementById("myHistory").innerHTML += (operation);
+    bar = document.getElementById("output-bar").innerHTML = "";
+    let equalsPlace = myHistory.indexOf("=")
+    let newHistory = myHistory.substring((equalsPlace + 1));
+    myHistory = document.getElementById("myHistory").innerHTML = newHistory;
+  }
   //PROBLEM: Operators can be used twice in a row. Find a way to render a syntax error
 }
 
 function allClear() {
-  bar = document.getElementById("output-bar").innerHTML = "";
+  bar = document.getElementById("output-bar").innerHTML = "0";
+  myHistory = document.getElementById("myHistory").innerHTML = "";
 }
 /*PROBLEM: After clearing the 0 doesn't go away. This will become a problem when 0 is made default later. Find a way
  to get rid of the zero when other numbers are put in */
@@ -84,10 +96,11 @@ function decimal() {
 
 function equals() {
 
-history = document.getElementById("history").innerHTML += bar;
-let equals = eval(history);
+myHistory = document.getElementById("myHistory").innerHTML += bar;
+let equals = eval(myHistory);
 bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
-history = document.getElementById("history").innerHTML += "=" + equals;
+myHistory = document.getElementById("myHistory").innerHTML += "=" + equals;
+//console.log(myHistory);
 //Need to add scientific notation for lengths greater than 9 and commas for non-equals lengths greater than 3
 //Need to add syntax errors in general to make sure this runs right
 }
