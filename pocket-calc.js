@@ -1,5 +1,9 @@
 var bar;
+<<<<<<< HEAD
 var history = "";
+=======
+var mymyHistory = "";
+>>>>>>> 1e415f8a142e0fe8ff3f676161c219ce92fceb2b
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
@@ -38,14 +42,29 @@ function xToTheY() {
 //There's probably a way to consolidate these two functions, if it's easier/more efficient to do that
 
 function operator(operation) {
-  history = document.getElementById("history").innerHTML += bar + operation;
+
+  let equalsCheck = myHistory.includes("=");
+if (!equalsCheck) {
+  myHistory = document.getElementById("myHistory").innerHTML += (bar + operation);
   bar = document.getElementById("output-bar").innerHTML = "";
+}
+  else if (equalsCheck) {
+    myHistory = document.getElementById("myHistory").innerHTML += (operation);
+    bar = document.getElementById("output-bar").innerHTML = "";
+    let equalsPlace = myHistory.indexOf("=")
+    let newHistory = myHistory.substring((equalsPlace + 1));
+    myHistory = document.getElementById("myHistory").innerHTML = newHistory;
+  }
   //PROBLEM: Operators can be used twice in a row. Find a way to render a syntax error
 }
 
 function allClear() {
   bar = document.getElementById("output-bar").innerHTML = "0";
+<<<<<<< HEAD
   history = document.getElementById("history").innerHTML = "";
+=======
+  myHistory = document.getElementById("myHistory").innerHTML = "";
+>>>>>>> 1e415f8a142e0fe8ff3f676161c219ce92fceb2b
 }
 /*PROBLEM: After clearing the 0 doesn't go away. This will become a problem when 0 is made default later. Find a way
  to get rid of the zero when other numbers are put in */
@@ -83,6 +102,7 @@ function decimal() {
 }
 
 function equals() {
+<<<<<<< HEAD
 console.log("Check 0");
 history = document.getElementById("history").innerHTML += bar;
 console.log(history);
@@ -92,6 +112,14 @@ history = document.getElementById("history").innerHTML += "=" + equals;
 console.log(history);
 bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
 console.log(bar);
+=======
+
+myHistory = document.getElementById("myHistory").innerHTML += bar;
+let equals = eval(myHistory);
+bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+myHistory = document.getElementById("myHistory").innerHTML += "=" + equals;
+//console.log(myHistory);
+>>>>>>> 1e415f8a142e0fe8ff3f676161c219ce92fceb2b
 //Need to add scientific notation for lengths greater than 9 and commas for non-equals lengths greater than 3
 //Need to add syntax errors in general to make sure this runs right
 }
