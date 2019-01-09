@@ -1,5 +1,5 @@
 var bar;
-var history;
+var history = "";
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
@@ -10,19 +10,18 @@ Consider adding default x cubed option
 Consider adding x! using 'for' loop*/
 
 function number(number) {
+  /*if (Number(bar) == 0) {
+    bar.replace("0", number);
+  }*/
   bar = document.getElementById("output-bar").innerHTML += number;
-  /*if (bar.length > 3) {
-  bar.toLocaleString('en');
-  Find a way to get the commas to apply at all times
-}*/
 }
 
 function euler() {
-  bar = document.getElementById("output-bar").innerHTML += Math.E.toFixed(9);
+  bar = document.getElementById("output-bar").innerHTML += "(2.718281828)";
 }
 
 function pi() {
-  bar = document.getElementById("output-bar").innerHTML += Math.PI.toFixed(9);
+  bar = document.getElementById("output-bar").innerHTML += "(3.141592654)";
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -30,7 +29,7 @@ function pi() {
 for an operator or else they don't work*/
 
 function xSquared() {
-  bar = document.getElementById("output-bar").innerHTML += '**2'
+  bar = document.getElementById("output-bar").innerHTML += '**2';
 }
 
 function xToTheY() {
@@ -45,7 +44,8 @@ function operator(operation) {
 }
 
 function allClear() {
-  bar = document.getElementById("output-bar").innerHTML = "";
+  bar = document.getElementById("output-bar").innerHTML = "0";
+  history = document.getElementById("history").innerHTML = "";
 }
 /*PROBLEM: After clearing the 0 doesn't go away. This will become a problem when 0 is made default later. Find a way
  to get rid of the zero when other numbers are put in */
@@ -64,7 +64,7 @@ if (equals > 0) {
 }
 
 function percent() {
-let equals = eval(bar);
+let equals = Number(bar);
 bar = document.getElementById("output-bar").innerHTML = equals/100;
 }
 
@@ -83,11 +83,15 @@ function decimal() {
 }
 
 function equals() {
-
+console.log("Check 0");
 history = document.getElementById("history").innerHTML += bar;
+console.log(history);
 let equals = eval(history);
-bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+console.log(equals);
 history = document.getElementById("history").innerHTML += "=" + equals;
+console.log(history);
+bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+console.log(bar);
 //Need to add scientific notation for lengths greater than 9 and commas for non-equals lengths greater than 3
 //Need to add syntax errors in general to make sure this runs right
 }
