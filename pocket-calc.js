@@ -1,8 +1,9 @@
-var bar = "";
-bar = document.getElementById("output-bar").innerHTML = "0";
+//var bar = "0";
+var bar = document.getElementById("output-bar");
+bar.innerHTML = 0;
 console.log(bar);
 //Gotta get the zero thing working
-var mymyHistory = "";
+var myHistory = "";
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
@@ -13,7 +14,7 @@ Consider adding x! using 'for' loop*/
 function number(number) {
 let zeroCheck = false;
 
-if (bar == 0) {
+if (bar == 0){
   zeroCheck = true;
 } console.log(zeroCheck);
 
@@ -25,11 +26,31 @@ if (zeroCheck == true) {
 }
 
 function euler() {
-  bar = document.getElementById("output-bar").innerHTML += "(2.718281828)";
+  let zeroCheck = false;
+
+  if (bar == 0){
+    zeroCheck = true;
+  } console.log(zeroCheck);
+
+  if (zeroCheck == true) {
+      bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
+    } else if (zeroCheck == false){
+    bar = document.getElementById("output-bar").innerHTML += "(2.718281828)";
+    }
 }
 
 function pi() {
-  bar = document.getElementById("output-bar").innerHTML += "(3.141592654)";
+  let zeroCheck = false;
+
+  if (bar == 0){
+    zeroCheck = true;
+  } console.log(zeroCheck);
+
+  if (zeroCheck == true) {
+      bar = document.getElementById("output-bar").innerHTML = "(3.141592654)";
+    } else if (zeroCheck == false){
+    bar = document.getElementById("output-bar").innerHTML += "(3.141592654)";
+    }
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -37,12 +58,13 @@ function pi() {
 for an operator or else they don't work*/
 
 function xSquared() {
-  //need to add history bit here
-  bar = document.getElementById("output-bar").innerHTML = eval(bar)**2;
+history = document.getElementById("myHistory").innerHTML = bar + "**2"
+bar = document.getElementById("output-bar").innerHTML = "";
 }
 
 function xToTheY() {
-  bar = document.getElementById("output-bar").innerHTML += '**';
+history = document.getElementById("myHistory").innerHTML = bar + "**"
+bar = document.getElementById("output-bar").innerHTML = "";
 }
 //There's probably a way to consolidate these two functions, if it's easier/more efficient to do that
 
@@ -116,7 +138,7 @@ function decimal() {
 
 function equals() {
 myHistory = document.getElementById("myHistory").innerHTML += bar;
-let equals = eval(myHistory);
+let equals = eval(myHistory);//.toFixed(8);
   if (equals > 999999999) {
     equals = equals.toExponential(8);
   }
