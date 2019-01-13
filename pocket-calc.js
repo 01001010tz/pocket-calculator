@@ -1,6 +1,5 @@
-//var bar = "0";
-var bar = document.getElementById("output-bar");
-bar.innerHTML = 0;
+var bar = "";
+bar = document.getElementById("output-bar").innerHTML = "0";
 console.log(bar);
 //Gotta get the zero thing working
 var myHistory = "";
@@ -10,11 +9,17 @@ Constants that work (problems loading pi and e)
 Multiple operators can be directly added where they shouldn't be able to
 Consider adding default x cubed option
 Consider adding x! using 'for' loop*/
+function lastCharCheck(){
+    let z = myHistory.length;
+    let lastChar = myHistory[z];
+    console.log("Last history character =" + lastChar);
+}
 
 function number(number) {
+lastCharCheck();
 let zeroCheck = false;
 
-if (bar == 0){
+if (bar == 0) {
   zeroCheck = true;
 } console.log(zeroCheck);
 
@@ -26,31 +31,13 @@ if (zeroCheck == true) {
 }
 
 function euler() {
-  let zeroCheck = false;
-
-  if (bar == 0){
-    zeroCheck = true;
-  } console.log(zeroCheck);
-
-  if (zeroCheck == true) {
-      bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
-    } else if (zeroCheck == false){
-    bar = document.getElementById("output-bar").innerHTML += "(2.718281828)";
-    }
+  lastCharCheck();
+  bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
 }
 
 function pi() {
-  let zeroCheck = false;
-
-  if (bar == 0){
-    zeroCheck = true;
-  } console.log(zeroCheck);
-
-  if (zeroCheck == true) {
-      bar = document.getElementById("output-bar").innerHTML = "(3.141592654)";
-    } else if (zeroCheck == false){
-    bar = document.getElementById("output-bar").innerHTML += "(3.141592654)";
-    }
+  lastCharCheck();
+  bar = document.getElementById("output-bar").innerHTML = "(3.141592654)";
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -58,18 +45,18 @@ function pi() {
 for an operator or else they don't work*/
 
 function xSquared() {
-history = document.getElementById("myHistory").innerHTML = bar + "**2"
-bar = document.getElementById("output-bar").innerHTML = "";
+  //need to add history bit here
+  bar = document.getElementById("output-bar").innerHTML = eval(bar)**2;
 }
 
 function xToTheY() {
-history = document.getElementById("myHistory").innerHTML = bar + "**"
-bar = document.getElementById("output-bar").innerHTML = "";
+  bar = document.getElementById("output-bar").innerHTML += '**';
 }
 //There's probably a way to consolidate these two functions, if it's easier/more efficient to do that
 
 function operator(operation) {
   let equalsCheck = false; //= myHistory.includes("=");
+  lastCharCheck();
   console.log("First check");
   let k = myHistory.length;
   for (let i = 0; i < k; i++) {
@@ -130,6 +117,7 @@ bar = document.getElementById("output-bar").innerHTML = equals/100;
 }
 
 function decimal() {
+    lastCharCheck();
     let bar = document.getElementById("output-bar").innerHTML += ".";
   }
 
@@ -138,7 +126,7 @@ function decimal() {
 
 function equals() {
 myHistory = document.getElementById("myHistory").innerHTML += bar;
-let equals = eval(myHistory);//.toFixed(8);
+let equals = eval(myHistory);
   if (equals > 999999999) {
     equals = equals.toExponential(8);
   }
