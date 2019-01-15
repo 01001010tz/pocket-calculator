@@ -8,6 +8,7 @@ Multiple operators can be directly added where they shouldn't be able to
 */
 
 while (myHistory !== "") {
+myHistory = document.getElementById("myHistory").innerHTML;
 let z = myHistory.length;
 lastChar = myHistory[z];
 }
@@ -64,12 +65,12 @@ for an operator or else they don't work*/
 
 function xSquared() {
 myHistory = document.getElementById("myHistory").innerHTML = bar + "**2";
-  bar = document.getElementById("output-bar").innerHTML = "";
+bar = document.getElementById("output-bar").innerHTML = "";
 }
 
 function xToTheY() {
 myHistory = document.getElementById("myHistory").innerHTML = bar + "**";
-  bar = document.getElementById("output-bar").innerHTML = "";
+bar = document.getElementById("output-bar").innerHTML = "";
 }
 
 function operator(operation) {
