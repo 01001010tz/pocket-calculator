@@ -1,13 +1,11 @@
-var bar = "";
-bar = document.getElementById("output-bar").innerHTML = "0";
-var myHistory = "";
-var lastChar;
+let bar = document.getElementById("output-bar");
+let myHistory = document.getElementById("myHistory");
+let lastChar;
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
 Multiple operators can be directly added where they shouldn't be able to
-Consider adding default x cubed option -- incredibly unlikely at this point
-Consider adding x! using 'for' loop-- incredibly unlikely at this point*/
+*/
 
 while (myHistory !== "") {
 let z = myHistory.length;
@@ -21,7 +19,13 @@ if (bar = Infinity) {
 function number(number) {
   console.log("Last character" + lastChar);
   let zeroCheck = false;
-
+  let equalsCheck = false;
+  let k = myHistory.length;
+  for (let i = 0; i < k; i++) {
+    if (myHistory[i] == "=") {
+      equalsCheck = true;
+    }
+  }
   if (bar == 0) {
     zeroCheck = true;
   }
@@ -30,6 +34,11 @@ function number(number) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
       bar = document.getElementById("output-bar").innerHTML += number;
+        /*if (equalsCheck = true) {
+          bar = document.getElementById("output-bar").innerHTML = number;
+        } else if (equalsCheck = false) {
+          bar = document.getElementById("output-bar").innerHTML += number;
+        }*/
     }
 }
 
@@ -99,7 +108,7 @@ function allClear() {
 }
 
 function negate() {
-  let minusCheck = false; //= myHistory.includes("=");
+  let minusCheck = false;
   let k = bar.length;
   for (let i = 0; i < k; i++) {
     if (bar[i] == "-") {
