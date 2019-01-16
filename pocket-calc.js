@@ -1,24 +1,37 @@
-let bar = document.getElementById("output-bar");
-let myHistory = document.getElementById("myHistory");
+let bar;
+let myHistory;
 let lastChar;
+let z;
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
 Multiple operators can be directly added where they shouldn't be able to
 */
 
-while (myHistory !== "") {
-myHistory = document.getElementById("myHistory").innerHTML;
-let z = myHistory.length;
-lastChar = myHistory[z];
+function setup() {
+  bar = document.getElementById("output-bar");
+  myHistory = document.getElementById("myHistory");
+  bar.innerHTML = "0";
+  myHistory.innerHTML = "";
+  lastChar = "";
+
+
+  myHistory = document.getElementById("myHistory").innerHTML;
+  z = myHistory.length;
+  lastChar = myHistory[z];
+  /*Need to add to calculator:
+  Scientific notation and commas for numbers that are too large
+  Constants that work (problems loading pi and e)
+  Multiple operators can be directly added where they shouldn't be able to
+  */
+  if (bar === Infinity || bar === NaN) {
+    alert("SYNTAX ERROR");
+  }
 }
 
-if (bar = Infinity) {
-  alert("SYNTAX ERROR")
-}
+
 
 function number(number) {
-  console.log("Last character" + lastChar);
   let zeroCheck = false;
   let equalsCheck = false;
   let k = myHistory.length;
@@ -27,7 +40,7 @@ function number(number) {
       equalsCheck = true;
     }
   }
-  if (bar == 0) {
+  if (bar == "0") {
     zeroCheck = true;
   }
 
@@ -44,6 +57,7 @@ function number(number) {
 }
 
 function euler() {
+  console.log(lastChar);
   if (lastChar == "+" || lastChar == "-" || lastChar == "/" || lastChar == "*") {
     bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
   } else {
@@ -75,7 +89,6 @@ bar = document.getElementById("output-bar").innerHTML = "";
 
 function operator(operation) {
 if (lastChar != "+" && lastChar != "-" && lastChar != "/" && lastChar != "*" && lastChar != NaN) {
-    console.log("Last character" + lastChar);
     let equalsCheck = false;
     let k = myHistory.length;
     for (let i = 0; i < k; i++) {
