@@ -11,25 +11,21 @@ Multiple operators can be directly added where they shouldn't be able to
 function setup() {
   bar = document.getElementById("output-bar");
   myHistory = document.getElementById("myHistory");
-  bar.innerHTML = "0";
-  myHistory.innerHTML = "";
   lastChar = "";
-
-
-  myHistory = document.getElementById("myHistory").innerHTML;
-  z = myHistory.length;
-  lastChar = myHistory[z];
+  allClear();
   /*Need to add to calculator:
   Scientific notation and commas for numbers that are too large
   Constants that work (problems loading pi and e)
   Multiple operators can be directly added where they shouldn't be able to
   */
-  if (bar === Infinity || bar === NaN) {
-    alert("SYNTAX ERROR");
   }
+
+function lastCharCheck(){
+myHistory = document.getElementById("myHistory").innerHTML;
+z = myHistory.length;
+lastChar = myHistory[z];
+console.log(lastChar);
 }
-
-
 
 function number(number) {
   let zeroCheck = false;
@@ -43,7 +39,7 @@ function number(number) {
   if (bar == "0") {
     zeroCheck = true;
   }
-
+console.log(zeroCheck);
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
@@ -57,7 +53,7 @@ function number(number) {
 }
 
 function euler() {
-  console.log(lastChar);
+lastCharCheck();
   if (lastChar == "+" || lastChar == "-" || lastChar == "/" || lastChar == "*") {
     bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
   } else {
@@ -66,6 +62,7 @@ function euler() {
 }
 
 function pi() {
+  lastCharCheck();
   if (lastChar == "+" || lastChar == "-" || lastChar == "/" || lastChar == "*") {
     bar = document.getElementById("output-bar").innerHTML = "(3.141592654)";
   } else {
@@ -78,12 +75,12 @@ function pi() {
 for an operator or else they don't work*/
 
 function xSquared() {
-myHistory = document.getElementById("myHistory").innerHTML = bar + "**2";
+myHistory = document.getElementById("myHistory").innerHTML += bar + "**2";
 bar = document.getElementById("output-bar").innerHTML = "";
 }
 
 function xToTheY() {
-myHistory = document.getElementById("myHistory").innerHTML = bar + "**";
+myHistory = document.getElementById("myHistory").innerHTML += bar + "**";
 bar = document.getElementById("output-bar").innerHTML = "";
 }
 
@@ -97,18 +94,14 @@ if (lastChar != "+" && lastChar != "-" && lastChar != "/" && lastChar != "*" && 
       }
     }
   if (equalsCheck === false) {
-    myHistory = document.getElementById("myHistory");
-    myHistory.innerHTML += (bar + operation);
+    myHistory = document.getElementById("myHistory").innerHTML += (bar + operation);
     bar = document.getElementById("output-bar").innerHTML = "";
   } else if (equalsCheck === true) {
-      myHistory = document.getElementById("myHistory");
-      myHistory.innerHTML += (operation);
-      bar = document.getElementById("output-bar");
-      bar.innerHTML = "";
+      myHistory = document.getElementById("myHistory").innerHTML += (operation);
+      bar = document.getElementById("output-bar").innerHTML = "";
       let equalsPlace = myHistory.indexOf("=");
       let newHistory = myHistory.substring((equalsPlace + 1));
-      myHistory = document.getElementById("myHistory");
-      myHistory.innerHTML = newHistory;
+      myHistory = document.getElementById("myHistory").innerHTML = newHistory;
     }
   //PROBLEM: Operators can be used twice in a row. Find a way to render a syntax error
 } else {
@@ -146,12 +139,15 @@ bar = document.getElementById("output-bar").innerHTML = equals/100;
 
 function decimal() {
   let decimalCheck = false;
-  if (bar.includes(".")) {
-    decimalCheck = true;
-  }
-
-  if (decimalCheck == true) {
+  if (bar.includes(".", 1)) {
+  decimalCheck = true;
+  console.log("First decimal check " + decimalCheck);
+}
+console.log("Second decimal check " + decimalCheck)
+  if (decimalCheck == false) {
     bar = document.getElementById("output-bar").innerHTML += ".";
+  } else if (decimalCheck == true) {
+    bar = document.getElementById("output-bar").innerHTML += "";
   }
 }
 //Problem: Can repeat over and over again without error. Fix that.
@@ -166,6 +162,10 @@ if (lastChar != "+" && lastChar != "-" && lastChar != "/" && lastChar != "*" && 
   bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
   myHistory = document.getElementById("myHistory").innerHTML += "=" + equals;
 } else {
+  alert("SYNTAX ERROR");
+}
+
+if (bar.innerHTML === Infinity || bar.innerHTML === NaN) {
   alert("SYNTAX ERROR");
 }
 //Need to add syntax errors in general to make sure this runs right
