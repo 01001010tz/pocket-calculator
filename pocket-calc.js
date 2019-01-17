@@ -4,9 +4,9 @@ let lastChar;
 let z;
 let lastIsOperator;
 let lastIsNumber;
+let lastIsConstant;
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
-Constants that work (problems loading pi and e)
 */
 
 function setup() {
@@ -16,10 +16,9 @@ function setup() {
   allClear();
   lastIsNumber = false;
   lastIsOperator = false;
+  lastIsConstant = false;
   /*Need to add to calculator:
   Scientific notation and commas for numbers that are too large
-  Constants that work (problems loading pi and e)
-  Multiple operators can be directly added where they shouldn't be able to
   */
   }
 
@@ -27,38 +26,40 @@ function number(number) {
   let zeroCheck = false;
   let equalsCheck = false;
   let k = myHistory.length;
+if (lastIsConstant == false) {
   for (let i = 0; i < k; i++) {
     if (myHistory[i] == "=") {
       equalsCheck = true;
     }
   }
-  if (bar == "0") {
+  if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
-console.log(zeroCheck);
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
-      bar = document.getElementById("output-bar").innerHTML += number;
-        /*if (equalsCheck = true) {
-          bar = document.getElementById("output-bar").innerHTML = number;
-        } else if (equalsCheck = false) {
-          bar = document.getElementById("output-bar").innerHTML += number;
-        }*/
+      if (bar.length > 3) {
+        let newBar = bar + number;
+        bar = document.getElementById("output-bar").innerHTML = newBar.toLocaleString("en");
+      } else {
+        bar = document.getElementById("output-bar").innerHTML += number;
+      }
     }
     lastIsNumber = true;
     lastIsOperator = false;
+  }
 }
 
 function euler() {
   let zeroCheck = false;
   let k = myHistory.length;
+  if (lastIsNumber == false) {
   for (let i = 0; i < k; i++) {
     if (myHistory[i] == "=") {
       equalsCheck = true;
     }
   }
-  if (bar == "0") {
+  if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
 
@@ -70,18 +71,22 @@ function euler() {
     }
   }
   lastIsNumber = true;
+  lastIsConstant = true;
+  lastIsOperator = false;
+  }
 }
 
 
 function pi() {
   let zeroCheck = false;
   let k = myHistory.length;
+if (lastIsNumber == false) {
   for (let i = 0; i < k; i++) {
     if (myHistory[i] == "=") {
       equalsCheck = true;
     }
   }
-  if (bar == "0") {
+  if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
 
@@ -93,6 +98,9 @@ function pi() {
     }
   }
   lastIsNumber = true;
+  lastIsConstant = true;
+  lastIsOperator = false;
+  }
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -117,6 +125,7 @@ if (equalsCheck === false) {
     let newHistory = myHistory.substring((equalsPlace + 1));
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
+  lastIsConstant = true;
 }
 
 function xToTheY() {
@@ -137,6 +146,7 @@ if (equalsCheck === false) {
     let newHistory = myHistory.substring((equalsPlace + 1));
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
+  lastIsConstant = true;
 }
 
 function operator(operation) {
@@ -158,7 +168,6 @@ if (lastIsNumber == true) {
       let newHistory = myHistory.substring((equalsPlace + 1));
       myHistory = document.getElementById("myHistory").innerHTML = newHistory;
     }
-  //PROBLEM: Operators can be used twice in a row. Find a way to render a syntax error
 } else if (lastIsOperator == true){
   let lastPlace = myHistory.length;
   let replaceHistory = myHistory.substring(0, (lastPlace-1));
@@ -166,11 +175,15 @@ if (lastIsNumber == true) {
   }
   lastIsOperator = true;
   lastIsNumber = false;
+  lastIsConstant = false;
 }
 
 function allClear() {
   bar = document.getElementById("output-bar").innerHTML = "0";
   myHistory = document.getElementById("myHistory").innerHTML = "";
+  lastIsConstant = false;
+  lastIsNumber = false;
+  lastIsOperator = false;
 }
 
 function negate() {
@@ -182,12 +195,16 @@ function negate() {
     }
   }
 
-if (minusCheck == false) {
-  bar = document.getElementById("output-bar").innerHTML = "-" + bar;
+if (minusCheck == false && bar != "") {
+  bar = document.getElementById("output-bar").innerHTML = "(-" + bar + ")";
+  lastIsConstant = true;
   } else if (minusCheck == true) {
-    let withoutMinus = bar.substring(1);
+    let parenthesisOut = bar.length - 1;
+    let withoutMinus = bar.substring(2, parenthesisOut);
     bar = document.getElementById("output-bar").innerHTML = withoutMinus;
-  //Get this part working
+    lastIsConstant = true;
+  } else if (bar == "") {
+    alert("SYNTAX ERROR // INPUT A NUMBER TO NEGATE IT");
   }
 }
 
@@ -198,32 +215,35 @@ bar = document.getElementById("output-bar").innerHTML = equals;
 
 function decimal() {
   let decimalCheck = false;
-  if (bar.includes(".", 1)) {
-  decimalCheck = true;
-  console.log("First decimal check " + decimalCheck);
+
+for (let y = 0; y < bar.length; y++) {
+  if (bar[y] === ".") {
+    decimalCheck = true;
+  }
 }
-console.log("Second decimal check " + decimalCheck)
-  if (decimalCheck == false) {
+  if (decimalCheck == false && bar !== "") {
     bar = document.getElementById("output-bar").innerHTML += ".";
   } else if (decimalCheck == true) {
     bar = document.getElementById("output-bar").innerHTML += "";
+  } else if (decimalCheck == false && bar == "") {
+    bar = document.getElementById("output-bar").innerHTML = "0."
   }
 }
-//Problem: Can repeat over and over again without error. Fix that.
 
 function equals() {
 if (lastIsOperator == false) {
     myHistory = document.getElementById("myHistory").innerHTML += bar;
+    bar = bar.replace(/,/g, "");
+    myHistory = myHistory.replace(/,/g, "");
+    console.log(myHistory);
   let equals = eval(myHistory);
    if (equals === Infinity || equals === NaN) {
       alert("SYNTAX ERROR // DIVISION BY 0");
   } if (equals > 999999999) {
-    equals = equals.toExponential();
+    equals = (Number(equals).toExponential(8)).toString();
   }
 
   bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
-  myHistory = document.getElementById("myHistory").innerHTML += "=" + equals;
-}
-
-//Need to add syntax errors in general to make sure this runs right
+  myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
+  }
 }
