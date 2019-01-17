@@ -7,7 +7,6 @@ let lastIsNumber;
 /*Need to add to calculator:
 Scientific notation and commas for numbers that are too large
 Constants that work (problems loading pi and e)
-Multiple operators can be directly added where they shouldn't be able to
 */
 
 function setup() {
@@ -15,6 +14,8 @@ function setup() {
   myHistory = document.getElementById("myHistory");
   lastChar = "";
   allClear();
+  lastIsNumber = false;
+  lastIsOperator = false;
   /*Need to add to calculator:
   Scientific notation and commas for numbers that are too large
   Constants that work (problems loading pi and e)
@@ -50,15 +51,48 @@ console.log(zeroCheck);
 }
 
 function euler() {
-  if (lastIsOperator == true) {
-    bar = document.getElementById("output-bar").innerHTML = "(2.718281828)";
+  let zeroCheck = false;
+  let k = myHistory.length;
+  for (let i = 0; i < k; i++) {
+    if (myHistory[i] == "=") {
+      equalsCheck = true;
+    }
   }
+  if (bar == "0") {
+    zeroCheck = true;
+  }
+
+  if (lastIsOperator == true && lastIsNumber == false || myHistory == "") {
+    if (zeroCheck == false) {
+    bar = document.getElementById("output-bar").innerHTML += "2.718281828";
+  } else if (zeroCheck == true) {
+    bar = document.getElementById("output-bar").innerHTML = "2.718281828";
+    }
+  }
+  lastIsNumber = true;
 }
 
+
 function pi() {
-  if (lastIsOperator == true) {
-    bar = document.getElementById("output-bar").innerHTML = "(3.141592654)";
+  let zeroCheck = false;
+  let k = myHistory.length;
+  for (let i = 0; i < k; i++) {
+    if (myHistory[i] == "=") {
+      equalsCheck = true;
+    }
   }
+  if (bar == "0") {
+    zeroCheck = true;
+  }
+
+  if (lastIsOperator == true && lastIsNumber == false || myHistory == "") {
+    if (zeroCheck == false) {
+    bar = document.getElementById("output-bar").innerHTML += "3.14159265";
+  } else if (zeroCheck == true) {
+    bar = document.getElementById("output-bar").innerHTML = "3.14159265";
+    }
+  }
+  lastIsNumber = true;
 }
 
 /* 1. I can probably make the constants into one function for efficiency/space
@@ -74,10 +108,10 @@ for (let i = 0; i < k; i++) {
   }
 }
 if (equalsCheck === false) {
-  myHistory = document.getElementById("myHistory").innerHTML += bar + "**2";
+  myHistory = document.getElementById("myHistory").innerHTML += "(" + bar + "**2)";
   bar = document.getElementById("output-bar").innerHTML = "";
 } else if (equalsCheck === true) {
-    myHistory = document.getElementById("myHistory").innerHTML += "**2";
+    myHistory = document.getElementById("myHistory").innerHTML = "(" + bar + "**2)";
     bar = document.getElementById("output-bar").innerHTML = "";
     let equalsPlace = myHistory.indexOf("=");
     let newHistory = myHistory.substring((equalsPlace + 1));
@@ -128,7 +162,7 @@ if (lastIsNumber == true) {
 } else if (lastIsOperator == true){
   let lastPlace = myHistory.length;
   let replaceHistory = myHistory.substring(0, (lastPlace-1));
-  myHistory.getElementById("myHistory") = replaceHistory;
+  myHistory = document.getElementById("myHistory").innerHTML = replaceHistory + operation;
   }
   lastIsOperator = true;
   lastIsNumber = false;
@@ -181,14 +215,15 @@ function equals() {
 if (lastIsOperator == false) {
     myHistory = document.getElementById("myHistory").innerHTML += bar;
   let equals = eval(myHistory);
-    if (equals > 999999999) {
-      equals = equals.toExponential();
-    }
+   if (equals === Infinity || equals === NaN) {
+      alert("SYNTAX ERROR // DIVISION BY 0");
+  } if (equals > 999999999) {
+    equals = equals.toExponential();
+  }
+
   bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
   myHistory = document.getElementById("myHistory").innerHTML += "=" + equals;
 }
-if (bar.innerHTML === Infinity || bar.innerHTML === NaN) {
-  alert("SYNTAX ERROR");
-}
+
 //Need to add syntax errors in general to make sure this runs right
 }
