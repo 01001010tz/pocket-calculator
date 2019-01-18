@@ -35,14 +35,20 @@ if (lastIsConstant == false) {
   if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
+  console.log("Bar check 0, shouldn't have any problems yet " + bar);
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
-      if (bar.length > 3) {
-        let newBar = bar + number;
-        bar = document.getElementById("output-bar").innerHTML = newBar.toLocaleString("en");
-      } else {
-        bar = document.getElementById("output-bar").innerHTML += number;
+        console.log("Bar check  0 part 2, shouldn't have any problems yet " + bar);
+        console.log("Bar check 1, should have commas " + bar);
+        bar.innerHTML = bar.replace(/,/g, "");
+        console.log("Bar check 2, should not have commas " + bar);
+        bar.innerHTML += number;
+        console.log("Bar check 3, should not have commas and should have next number " + bar);
+        bar.innerHTML = bar.toLocaleString("en");
+        console.log("Bar check 4, should be full number with commas " + bar);
+       if (bar.length > 9) {
+        //scientific notation here
       }
     }
     lastIsNumber = true;
@@ -146,7 +152,6 @@ if (equalsCheck === false) {
     let newHistory = myHistory.substring((equalsPlace + 1));
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
-  lastIsConstant = true;
 }
 
 function operator(operation) {
