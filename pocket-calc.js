@@ -41,11 +41,11 @@ if (lastIsConstant == false) {
     } else if (zeroCheck == false){
         console.log("Bar check  0 part 2, shouldn't have any problems yet " + bar);
         console.log("Bar check 1, should have commas " + bar);
-        bar.innerHTML = bar.replace(/,/g, "");
+        let temp = bar.replace(/,/g, "");
         console.log("Bar check 2, should not have commas " + bar);
-        bar.innerHTML += number;
+        temp += number;
         console.log("Bar check 3, should not have commas and should have next number " + bar);
-        bar.innerHTML = bar.toLocaleString("en");
+        bar.innerHTML = temp.toLocaleString("en");
         console.log("Bar check 4, should be full number with commas " + bar);
        if (bar.length > 9) {
         //scientific notation here
