@@ -32,6 +32,12 @@ if (lastIsConstant == false) {
       equalsCheck = true;
     }
   }
+  for (let x = 0; x < bar.length; x++) {
+    if (bar[x] == ".") {
+      decimalCheck = true;
+      var decimalPlace = indexOf(".");
+    }
+  }
   if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
@@ -242,14 +248,16 @@ if (lastIsOperator == false) {
     myHistory = document.getElementById("myHistory").innerHTML += bar;
     bar = bar.replace(/,/g, "");
     myHistory = myHistory.replace(/,/g, "");
-  let equals = eval(myHistory);
-   if (equals === Infinity || equals === NaN) {
+    var equals = eval(myHistory);
+  if (equals !== Infinity && equals !== NaN) {
+    if (equals > 999999999) {
+      equals = (Number(equals).toExponential(8)).toString();
+    }
+    myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
+    bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+    } else if (equals === Infinity || equals === NaN) {
       alert("SYNTAX ERROR // DIVISION BY 0");
-  } if (equals > 999999999) {
-    equals = (Number(equals).toExponential(8)).toString();
-  }
-
-  bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
-  myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
+      allClear();
+    }
   }
 }
