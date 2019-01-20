@@ -35,7 +35,7 @@ if (lastIsConstant == false) {
   for (let x = 0; x < bar.length; x++) {
     if (bar[x] == ".") {
       decimalCheck = true;
-      var decimalPlace = indexOf(".");
+      var decimalPlace = bar.indexOf(".");
     }
   }
   if (bar == "0" || bar == "-0") {
@@ -45,22 +45,26 @@ if (lastIsConstant == false) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
         bar = document.getElementById("output-bar").innerHTML;
-        let temp = bar;
-        bar.innerHTML = "";
-        temp = temp.replace(/,/g, "");
-        temp += number;
-        temp = Number(temp).toLocaleString("en");
-        bar = document.getElementById("output-bar").innerHTML = temp;
-       if (Number(bar) > 999999999) {
-         bar = document.getElementById("output-bar").innerHTML;
-         bar = Number(bar).toExponential(8);
-         bar = document.getElementById("output-bar").innerHTML = bar;
+        if (decimalCheck == true) {
+          let beforeDecimal = bar.substring(0, decimalPlace);
+          let afterDecimal = bar.substring(decimalPlace + 1);
+          afterDecimal += number;
+          bar = document.getElementById("output-bar").innerHTML = beforeDecimal + "." + afterDecimal;
+          afterDecimal = "";
+          beforeDecimal = "";
+        } else if (decimalCheck == false) {
+          let temp = bar;
+          bar.innerHTML = "";
+          temp = temp.replace(/,/g, "");
+          temp += number;
+          temp = Number(temp).toLocaleString("en");
+          bar = document.getElementById("output-bar").innerHTML = temp;
+        }
       }
     }
     lastIsNumber = true;
     lastIsOperator = false;
   }
-}
 
 function euler() {
   let zeroCheck = false;
