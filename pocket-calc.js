@@ -102,7 +102,7 @@ if (lastIsNumber == false) {
   if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
-
+console.log("LastIsOperator " + lastIsOperator);
   if (lastIsOperator == true && lastIsNumber == false || myHistory == "") {
     if (zeroCheck == false) {
     bar = document.getElementById("output-bar").innerHTML += "3.14159265";
@@ -221,7 +221,8 @@ if (minusCheck == false && bar != "") {
 }
 
 function percent() {
-let equals = (Number(bar)/100).toString();
+bar = bar.replace(/,/g, "");
+let equals = (Number(bar)/100).toLocaleString("en");
 bar = document.getElementById("output-bar").innerHTML = equals;
 }
 
