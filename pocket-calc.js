@@ -162,6 +162,7 @@ if (equalsCheck === false) {
     let newHistory = myHistory.substring((equalsPlace + 1));
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
+  lastIsOperator = true;
 }
 
 function operator(operation) {
@@ -226,7 +227,10 @@ if (minusCheck == false && bar != "") {
 function percent() {
 bar = bar.toString();
 bar = bar.replace(/,/g, "");
-let equals = (Number(bar)/100).toLocaleString("en");
+let equals = (Number(bar)/100)
+  if (equals > 999) {
+      equals = equals.toLocaleString("en");
+    }
 bar = document.getElementById("output-bar").innerHTML = equals;
 }
 
