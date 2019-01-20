@@ -18,13 +18,13 @@ function setup() {
   lastIsOperator = false;
   lastIsConstant = false;
   /*Need to add to calculator:
-  Scientific notation and commas for numbers that are too large
+  Scientific notation for numbers that are too large
   */
   }
 
 function number(number) {
   let zeroCheck = false;
-  let equalsCheck = false;
+  let decimalCheck = false;
   let k = myHistory.length;
 if (lastIsConstant == false) {
   for (let i = 0; i < k; i++) {
@@ -35,27 +35,20 @@ if (lastIsConstant == false) {
   if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
-  console.log("Bar check 0, shouldn't have any problems yet " + bar);
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
     } else if (zeroCheck == false){
-        /*console.log("Bar check  0 part 2, shouldn't have any problems yet " + bar);
-        console.log("Bar check 1, should have commas " + bar);
-        let temp = bar.replace(/,/g, );
-        console.log("Bar check 2, should not have commas " + bar);
-        temp += number;
-        console.log("Bar check 3, should not have commas and should have next number " + bar);
-        console.log(temp)
-        bar.innerHTML = temp.toLocaleString("en");
-        console.log("Bar check 4, should be full number with commas " + bar);*/
         bar = document.getElementById("output-bar").innerHTML;
-        let temp = bar.innerHTML;
+        let temp = bar;
         bar.innerHTML = "";
-        temp = temp.replace(/,/g, "")
+        temp = temp.replace(/,/g, "");
         temp += number;
-        bar = document.getElementById("output-bar").innerHTML = temp.toLocaleString("en");
-       if (bar.length > 9) {
-        //scientific notation here
+        temp = Number(temp).toLocaleString("en");
+        bar = document.getElementById("output-bar").innerHTML = temp;
+       if (Number(bar) > 999999999) {
+         bar = document.getElementById("output-bar").innerHTML;
+         bar = Number(bar).toExponential(8);
+         bar = document.getElementById("output-bar").innerHTML = bar;
       }
     }
     lastIsNumber = true;
@@ -221,6 +214,7 @@ if (minusCheck == false && bar != "") {
 }
 
 function percent() {
+bar = bar.toString();
 bar = bar.replace(/,/g, "");
 let equals = (Number(bar)/100).toLocaleString("en");
 bar = document.getElementById("output-bar").innerHTML = equals;
@@ -248,7 +242,6 @@ if (lastIsOperator == false) {
     myHistory = document.getElementById("myHistory").innerHTML += bar;
     bar = bar.replace(/,/g, "");
     myHistory = myHistory.replace(/,/g, "");
-    console.log(myHistory);
   let equals = eval(myHistory);
    if (equals === Infinity || equals === NaN) {
       alert("SYNTAX ERROR // DIVISION BY 0");
