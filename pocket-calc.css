@@ -12,6 +12,14 @@
   text-align: right;
 }
 
+#hidden {
+  color:white;
+}
+
+#hidden:hover {
+  color:black;
+}
+
 table {
   padding:"0";
   width:512px;
