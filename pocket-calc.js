@@ -58,7 +58,8 @@ if (lastIsConstant == false) {
       }
       let barNumb = Number(bar);
       if (barNumb > 999999999) {
-        bar = document.getElementById("output-bar").innerHTML = barNumb.toExponential(8);
+        bar = document.getElementById("output-bar").innerHTML = "";
+        bar.innerHTML = barNumb.toExponential(8);
       }
     }
     lastIsNumber = true;
@@ -226,6 +227,8 @@ if (minusCheck == false && bar != "") {
 function percent() {
 bar = bar.toString();
 bar = bar.replace(/,/g, "");
+bar = bar.replace("(", "");
+bar = bar.replace(")", "");
 let equals = (Number(bar)/100)
   if (equals > 999) {
       equals = equals.toLocaleString("en");
