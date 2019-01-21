@@ -1,7 +1,5 @@
 let bar;
 let myHistory;
-let lastChar;
-let z;
 let lastIsOperator;
 let lastIsNumber;
 let lastIsConstant;
@@ -12,7 +10,6 @@ Scientific notation and commas for numbers that are too large
 function setup() {
   bar = document.getElementById("output-bar");
   myHistory = document.getElementById("myHistory");
-  lastChar = "";
   allClear();
   lastIsNumber = false;
   lastIsOperator = false;
@@ -50,8 +47,6 @@ if (lastIsConstant == false) {
           let afterDecimal = bar.substring(decimalPlace + 1);
           afterDecimal += number;
           bar = document.getElementById("output-bar").innerHTML = beforeDecimal + "." + afterDecimal;
-          afterDecimal = "";
-          beforeDecimal = "";
         } else if (decimalCheck == false) {
           let temp = bar;
           bar.innerHTML = "";
@@ -75,17 +70,17 @@ function euler() {
       equalsCheck = true;
     }
   }
-  if (bar == "0" || bar == "-0") {
-    zeroCheck = true;
-  }
-
-  if (lastIsOperator == true && lastIsNumber == false || myHistory == "") {
-    if (zeroCheck == false) {
-    bar = document.getElementById("output-bar").innerHTML += "2.718281828";
-  } else if (zeroCheck == true) {
-    bar = document.getElementById("output-bar").innerHTML = "2.718281828";
+    if (bar == "0" || bar == "-0") {
+      zeroCheck = true;
     }
-  }
+
+    if (lastIsOperator == true && lastIsNumber == false || myHistory == "" || bar == "") {
+      if (zeroCheck == false) {
+      bar = document.getElementById("output-bar").innerHTML += "2.718281828";
+    } else if (zeroCheck == true) {
+      bar = document.getElementById("output-bar").innerHTML = "2.718281828";
+      }
+    }
   lastIsNumber = true;
   lastIsConstant = true;
   lastIsOperator = false;
@@ -106,7 +101,7 @@ if (lastIsNumber == false) {
     zeroCheck = true;
   }
 console.log("LastIsOperator " + lastIsOperator);
-  if (lastIsOperator == true && lastIsNumber == false || myHistory == "") {
+  if (lastIsOperator == true && lastIsNumber == false || myHistory == "" || bar == "") {
     if (zeroCheck == false) {
     bar = document.getElementById("output-bar").innerHTML += "3.14159265";
   } else if (zeroCheck == true) {
@@ -257,12 +252,32 @@ if (lastIsOperator == false) {
     bar = bar.replace(/,/g, "");
     myHistory = myHistory.replace(/,/g, "");
     var equals = eval(myHistory);
+    let decimalCheck = false;
+
   if (equals !== Infinity && equals !== NaN) {
     if (equals > 999999999) {
       equals = (Number(equals).toExponential(8)).toString();
     }
-    myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
-    bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+
+    for (let e; e < equals.length; e++) {
+      if (equals[e] == ".") {
+        decimalCheck = true;
+        var decimalPlace = equals.indexOf(".");
+      }
+    }
+
+      if (decimalCheck == true) {
+        let beforeDecimal = equals.substring(0, decimalPlace);
+        let afterDecimal = equals.substring(decimalPlace + 1);
+        beforeDecimal = beforeDecimal.toLocaleString("en");
+        bar = document.getElementById("output-bar").innerHTML = beforeDecimal + "." + afterDecimal;
+      } else if (decimalCheck == false) {
+        myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
+        bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+      }
+      if (Number(bar) > 999999999) {
+        bar.innerHTML = bar.toExponential(8);
+      }
     } else if (equals === Infinity || equals === NaN) {
       alert("SYNTAX ERROR // DIVISION BY 0");
       allClear();
