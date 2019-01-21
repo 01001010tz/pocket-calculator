@@ -23,6 +23,7 @@ function number(number) {
   let zeroCheck = false;
   let decimalCheck = false;
   let k = myHistory.length;
+  let counter;
 if (lastIsConstant == false) {
   for (let i = 0; i < k; i++) {
     if (myHistory[i] == "=") {
@@ -40,6 +41,7 @@ if (lastIsConstant == false) {
   }
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
+      counter++;
     } else if (zeroCheck == false){
         bar = document.getElementById("output-bar").innerHTML;
         if (decimalCheck == true) {
@@ -54,12 +56,11 @@ if (lastIsConstant == false) {
           temp += number;
           temp = Number(temp).toLocaleString("en");
           bar = document.getElementById("output-bar").innerHTML = temp;
+          counter++;
         }
       }
-      let barNumb = Number(bar);
-      if (barNumb > 999999999) {
-        bar = document.getElementById("output-bar").innerHTML = "";
-        bar.innerHTML = barNumb.toExponential(8);
+      if (counter > 9) {
+        bar = document.getElementById("output-bar").innerHTML = Number.parseFloat(bar).toExponential();
       }
     }
     lastIsNumber = true;
@@ -163,6 +164,8 @@ if (equalsCheck === false) {
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
   lastIsOperator = true;
+  lastIsNumber = false;
+  lastIsConstant = false;
 }
 
 function operator(operation) {
@@ -283,7 +286,7 @@ if (lastIsOperator == false) {
         bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
       }
       if (Number(bar) > 999999999) {
-        bar.innerHTML = bar.toExponential(8);
+        bar.innerHTML = Number.parseFloat(bar).toExponential();
       }
     } else if (equals === Infinity || equals === NaN) {
       alert("SYNTAX ERROR // DIVISION BY 0");
