@@ -56,6 +56,10 @@ if (lastIsConstant == false) {
           bar = document.getElementById("output-bar").innerHTML = temp;
         }
       }
+      let barNumb = Number(bar);
+      if (barNumb > 999999999) {
+        bar = document.getElementById("output-bar").innerHTML = barNumb.toExponential(8);
+      }
     }
     lastIsNumber = true;
     lastIsOperator = false;
