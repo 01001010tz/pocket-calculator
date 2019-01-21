@@ -66,6 +66,7 @@ function number(number) {
     lastIsOperator = false;
     lastIsConstant = false;
     justEquals = false;
+    lastIsSquared = false;
   }
 
 function euler() {
@@ -133,6 +134,7 @@ for (let i = 0; i < k; i++) {
     equalsCheck = true;
   }
 }
+if (lastIsSquared == false) {
 if (equalsCheck === false) {
   myHistory = document.getElementById("myHistory").innerHTML += "(" + bar + "**2)";
   bar = document.getElementById("output-bar").innerHTML = "";
@@ -144,7 +146,9 @@ if (equalsCheck === false) {
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
   lastIsConstant = true;
-
+  lastIsSquared = true;
+  justEquals = false;
+  }
 }
 
 function xToTheY() {
@@ -171,6 +175,7 @@ if (equalsCheck === false) {
   lastIsNumber = false;
   lastIsConstant = false;
   justEquals = false;
+  lastIsSquared = true;
   }
 }
 
@@ -202,6 +207,7 @@ if (lastIsNumber == true) {
   lastIsNumber = false;
   lastIsConstant = false;
   justEquals = false;
+  lastIsSquared = false;
 }
 
 function allClear() {
@@ -211,6 +217,7 @@ function allClear() {
   lastIsNumber = false;
   lastIsOperator = false;
   justEquals = false;
+  lastIsSquared = false;
 }
 
 function negate() {
@@ -305,6 +312,6 @@ if (lastIsOperator == false && justEquals == false) {
       allClear();
     }
   } else if (justEquals == true || (bar.length == 1 && myHistory == "")) {
-    alert("SYNTAX ERROR");
+    alert("SYNTAX ERROR // REFLEXIVE PROPERTY");
   }
 }
