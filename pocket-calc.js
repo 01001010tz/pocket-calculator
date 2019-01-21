@@ -23,8 +23,8 @@ function number(number) {
   let zeroCheck = false;
   let decimalCheck = false;
   let k = myHistory.length;
-  let counter;
-if (lastIsConstant == false) {
+
+  if (lastIsConstant == false) {
   for (let i = 0; i < k; i++) {
     if (myHistory[i] == "=") {
       equalsCheck = true;
@@ -41,7 +41,6 @@ if (lastIsConstant == false) {
   }
   if (zeroCheck == true) {
       bar = document.getElementById("output-bar").innerHTML = number;
-      counter++;
     } else if (zeroCheck == false){
         bar = document.getElementById("output-bar").innerHTML;
         if (decimalCheck == true) {
@@ -56,15 +55,17 @@ if (lastIsConstant == false) {
           temp += number;
           temp = Number(temp).toLocaleString("en");
           bar = document.getElementById("output-bar").innerHTML = temp;
-          counter++;
         }
       }
-      if (counter > 9) {
-        bar = document.getElementById("output-bar").innerHTML = Number.parseFloat(bar).toExponential();
+     if (bar.length > 11) {
+        alert("OVERFLOW ERROR // KEEP INPUTS TO LESS THAN 9 DIGITS");
+        allClear();
       }
     }
     lastIsNumber = true;
     lastIsOperator = false;
+    lastIsConstant = false;
+    justEquals = false;
   }
 
 function euler() {
@@ -106,7 +107,6 @@ if (lastIsNumber == false) {
   if (bar == "0" || bar == "-0") {
     zeroCheck = true;
   }
-console.log("LastIsOperator " + lastIsOperator);
   if (lastIsOperator == true && lastIsNumber == false || myHistory == "" || bar == "") {
     if (zeroCheck == false) {
     bar = document.getElementById("output-bar").innerHTML += "3.14159265";
@@ -117,6 +117,7 @@ console.log("LastIsOperator " + lastIsOperator);
   lastIsNumber = true;
   lastIsConstant = true;
   lastIsOperator = false;
+  justEquals = false;
   }
 }
 
@@ -143,6 +144,7 @@ if (equalsCheck === false) {
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
   }
   lastIsConstant = true;
+
 }
 
 function xToTheY() {
@@ -153,6 +155,8 @@ for (let i = 0; i < k; i++) {
     equalsCheck = true;
   }
 }
+
+if (lastIsOperator == false) {
 if (equalsCheck === false) {
   myHistory = document.getElementById("myHistory").innerHTML += bar + "**";
   bar = document.getElementById("output-bar").innerHTML = "";
@@ -166,6 +170,8 @@ if (equalsCheck === false) {
   lastIsOperator = true;
   lastIsNumber = false;
   lastIsConstant = false;
+  justEquals = false;
+  }
 }
 
 function operator(operation) {
@@ -195,6 +201,7 @@ if (lastIsNumber == true) {
   lastIsOperator = true;
   lastIsNumber = false;
   lastIsConstant = false;
+  justEquals = false;
 }
 
 function allClear() {
@@ -203,6 +210,7 @@ function allClear() {
   lastIsConstant = false;
   lastIsNumber = false;
   lastIsOperator = false;
+  justEquals = false;
 }
 
 function negate() {
@@ -225,6 +233,7 @@ if (minusCheck == false && bar != "") {
   } else if (bar == "") {
     alert("SYNTAX ERROR // INPUT A NUMBER TO NEGATE IT");
   }
+  justEquals = false;
 }
 
 function percent() {
@@ -237,6 +246,7 @@ let equals = (Number(bar)/100)
       equals = equals.toLocaleString("en");
     }
 bar = document.getElementById("output-bar").innerHTML = equals;
+justEquals = false;
 }
 
 function decimal() {
@@ -257,7 +267,7 @@ for (let y = 0; y < bar.length; y++) {
 }
 
 function equals() {
-if (lastIsOperator == false) {
+if (lastIsOperator == false && justEquals == false) {
     myHistory = document.getElementById("myHistory").innerHTML += bar;
     bar = bar.replace(/,/g, "");
     myHistory = myHistory.replace(/,/g, "");
@@ -275,15 +285,17 @@ if (lastIsOperator == false) {
         var decimalPlace = equals.indexOf(".");
       }
     }
-
       if (decimalCheck == true) {
         let beforeDecimal = equals.substring(0, decimalPlace);
         let afterDecimal = equals.substring(decimalPlace + 1);
         beforeDecimal = beforeDecimal.toLocaleString("en");
         bar = document.getElementById("output-bar").innerHTML = beforeDecimal + "." + afterDecimal;
       } else if (decimalCheck == false) {
+        if (!myHistory.includes("=")) {
         myHistory = document.getElementById("myHistory").innerHTML += "=" + equals.toLocaleString("en");
         bar = document.getElementById("output-bar").innerHTML = equals.toLocaleString("en");
+        justEquals = true;
+        }
       }
       if (Number(bar) > 999999999) {
         bar.innerHTML = Number.parseFloat(bar).toExponential();
@@ -292,5 +304,7 @@ if (lastIsOperator == false) {
       alert("SYNTAX ERROR // DIVISION BY 0");
       allClear();
     }
+  } else if (justEquals == true || (bar.length == 1 && myHistory == "")) {
+    alert("SYNTAX ERROR");
   }
 }
