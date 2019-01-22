@@ -12,48 +12,42 @@
       <tr>
           <td id = "myHistory" colspan = "4"></td>
       </tr>
-
       <tr>
         <td id="output-bar" colspan="4"></td>
       </tr>
-
       <tr>
         <td><button onclick="euler();" class="navy">e</button></td>
         <td><button onclick="pi();" class="navy">pi</button></td>
-        <td><button onclick="xSquared();" class="navy">x^2</button></td>
-        <td><button onclick="xToTheY();" class="navy">x^y</button></td>
+        <td><button onclick="xSquared();" class="navy" id="xS">x^2</button></td>
+        <td><button onclick="xToTheY();" class="navy" id="xS">x^y</button></td>
       </tr>
-
       <tr>
-        <td><button onclick="allClear();" class="navy">AC</button></td>
+        <td><button onclick="allClear();" class="navy" id="AC">AC</button></td>
         <td><button onclick="negate();" class="navy">+/-</button></td>
         <td><button onclick="percent();" class="navy">%</button></td>
         <td><button onclick="operator('/');" class="navy">/</button></td>
       </tr>
-
       <tr>
           <td><button onclick="number(7);">7</button></td>
           <td><button onclick="number(8);">8</button></td>
           <td><button onclick="number(9);">9</button></td>
           <td><button onclick="operator('*');" class="navy">X</button></td>
       </tr>
-
       <tr>
           <td><button onclick="number(4);">4</button></td>
           <td><button onclick="number(5);">5</button></td>
           <td><button onclick="number(6);">6</button></td>
           <td><button onclick="operator('-');" class="navy">-</button></td>
       </tr>
-
       <tr>
           <td><button onclick="number(1);">1</button></td>
           <td><button onclick="number(2);">2</button></td>
           <td><button onclick="number(3);">3</button></td>
           <td><button onclick="operator('+');" class="navy">+</button></td>
       </tr>
-
       <tr>
-        <td colspan="2"><button onclick="number(0);">0</button></td>
+        <td><button onclick = "howTo()" id ="HDPC">HDPC</button></td>
+        <td id="zero"><button onclick="number(0);">0</button></td>
         <td><button onclick="decimal();">(.)</button></td>
         <td><button onclick="equals();" class="navy">=</button></td>
       </tr>

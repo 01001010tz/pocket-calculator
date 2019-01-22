@@ -12,6 +12,30 @@
   text-align: right;
 }
 
+#HDPC {
+  font-size:12pt;
+  padding:0;
+  font-weight:bold;
+}
+
+#xS {
+  font-size:24pt;
+  padding:0;
+}
+
+#AC {
+  font-size:28pt;
+  padding:0;
+}
+
+#hidden {
+  color:white;
+}
+
+#hidden:hover {
+  color:black;
+}
+
 table {
   padding:"0";
   width:512px;
@@ -27,14 +51,8 @@ table {
 button {
   height:100%;
   width:100%;
+  max-width:128px;
   padding:0;
-  font-size:32pt;
+  font-size:30pt;
   border:3px solid black;
-}
-
-#hidden {
-  color:white;
-}
-#hidden:hover {
-  color:black;
 }

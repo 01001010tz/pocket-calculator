@@ -18,7 +18,9 @@ function setup() {
   Scientific notation for numbers that are too large
   */
   }
-
+function howTo() {
+  alert("Welcome to the Handy Dandy Pocket Calculator (HDPC)! This should work just like a real calculator, so use it as one. Just keep in mind that inputs are limited to 9 digits, and some functions, such as negation, percentage, and squaring, can only be used after a number is inputted. Constants and parentheses also prevent you from further inputting numbers until you operate on them. Thank you for using the HDPC, now please keep your arms, legs, and all other objects inside the cart at all times. Enjoy the ride.");
+}
 function number(number) {
   let zeroCheck = false;
   let decimalCheck = false;
@@ -134,7 +136,7 @@ for (let i = 0; i < k; i++) {
     equalsCheck = true;
   }
 }
-if (lastIsSquared == false) {
+if (lastIsSquared == false && lastIsOperator == false) {
 if (equalsCheck === false) {
   myHistory = document.getElementById("myHistory").innerHTML += "(" + bar + "**2)";
   bar = document.getElementById("output-bar").innerHTML = "";
@@ -170,13 +172,17 @@ if (equalsCheck === false) {
     let equalsPlace = myHistory.indexOf("=");
     let newHistory = myHistory.substring((equalsPlace + 1));
     myHistory = document.getElementById("myHistory").innerHTML = newHistory;
+    }
+  }else if (lastIsOperator == true && lastIsSquared == false) {
+    let lastPlace = myHistory.length;
+    let replaceHistory = myHistory.substring(0, (lastPlace-1));
+    myHistory = document.getElementById("myHistory").innerHTML = replaceHistory + "**";
   }
   lastIsOperator = true;
   lastIsNumber = false;
   lastIsConstant = false;
   justEquals = false;
   lastIsSquared = true;
-  }
 }
 
 function operator(operation) {
@@ -252,6 +258,9 @@ let equals = (Number(bar)/100)
   if (equals > 999) {
       equals = equals.toLocaleString("en");
     }
+  if((equals.toString()).length > 9) {
+    equals = equals.toExponential(6);
+  }
 bar = document.getElementById("output-bar").innerHTML = equals;
 justEquals = false;
 }
@@ -283,7 +292,7 @@ if (lastIsOperator == false && justEquals == false) {
 
   if (equals !== Infinity && equals !== NaN) {
     if (equals > 999999999) {
-      equals = (Number(equals).toExponential(8)).toString();
+      equals = (Number(equals).toExponential(6)).toString();
     }
 
     for (let e; e < equals.length; e++) {
@@ -304,11 +313,11 @@ if (lastIsOperator == false && justEquals == false) {
         justEquals = true;
         }
       }
-      if (Number(bar) > 999999999) {
+      if (Number(bar) > 999999999 || bar.length > 11) {
         bar.innerHTML = Number.parseFloat(bar).toExponential();
       }
     } else if (equals === Infinity || equals === NaN) {
-      alert("SYNTAX ERROR // DIVISION BY 0");
+      alert("SYNTAX ERROR // INFINITY OR DIVISION BY 0");
       allClear();
     }
   } else if (justEquals == true || (bar.length == 1 && myHistory == "")) {
